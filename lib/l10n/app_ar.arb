@@ -1,0 +1,18 @@
+{
+  "@@locale": "ar",
+  "home": "الرئيسية",
+  "services": "الخدمات",
+  "more": "المزيد",
+  "welcome": "مرحباً بك في خدمات الموظفين",
+  "employeeCard": "بطاقة الموظف",
+  "comingSoon": "قريباً",
+  "employeeNumber": "رقم الموظف",
+  "enterEmployeeNumber": "أدخل رقم الموظف",
+  "search": "بحث",
+  "employeeNotFound": "لم يتم العثور على بيانات الموظف",
+  "pleaseEnterEmployeeNumber": "الرجاء إدخال رقم الموظف",
+  "retry": "إعادة المحاولة",
+  "language": "اللغة",
+  "arabic": "العربية",
+  "english": "English"
+}

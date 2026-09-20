@@ -1,0 +1,18 @@
+{
+  "@@locale": "en",
+  "home": "Home",
+  "services": "Services",
+  "more": "More",
+  "welcome": "Welcome to Employee Services",
+  "employeeCard": "Employee Card",
+  "comingSoon": "Coming Soon",
+  "employeeNumber": "Employee Number",
+  "enterEmployeeNumber": "Enter employee number",
+  "search": "Search",
+  "employeeNotFound": "Employee data was not found",
+  "pleaseEnterEmployeeNumber": "Please enter the employee number",
+  "retry": "Retry",
+  "language": "Language",
+  "arabic": "العربية",
+  "english": "English"
+}

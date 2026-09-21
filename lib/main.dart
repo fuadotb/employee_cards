@@ -1,8 +1,7 @@
+import 'package:employee_cards/routes/route_app.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-
 import 'l10n/app_localizations.dart';
-import 'screens/home_page.dart';
 
 void main() {
   runApp(const EmployeeCardsApp());
@@ -26,15 +25,13 @@ class _EmployeeCardsAppState extends State<EmployeeCardsApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    final router = RouteApp.routes(changeLanguage);
+    return MaterialApp.router(
       debugShowCheckedModeBanner: false,
 
       locale: _locale,
 
-      supportedLocales: const [
-        Locale('ar'),
-        Locale('en'),
-      ],
+      supportedLocales: const [Locale('ar'), Locale('en')],
 
       localizationsDelegates: const [
         AppLocalizations.delegate,
@@ -48,9 +45,13 @@ class _EmployeeCardsAppState extends State<EmployeeCardsApp> {
         colorSchemeSeed: const Color(0xFF006870),
       ),
 
-      home: HomePage(
-        onLanguageChanged: changeLanguage,
-      ),
+      // home: HomePage(
+      //   onLanguageChanged: changeLanguage,
+      // ),
+      routerDelegate: router.routerDelegate,
+      routeInformationParser: router.routeInformationParser,
+      routeInformationProvider: router.routeInformationProvider,
+      backButtonDispatcher: router.backButtonDispatcher,
     );
   }
 }

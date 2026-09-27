@@ -17,6 +17,8 @@ class EmployeeCardsApp extends StatefulWidget {
 class _EmployeeCardsAppState extends State<EmployeeCardsApp> {
   Locale _locale = const Locale('ar');
 
+  late final router = RouteApp.routes(changeLanguage);
+
   void changeLanguage(Locale locale) {
     setState(() {
       _locale = locale;
@@ -25,7 +27,6 @@ class _EmployeeCardsAppState extends State<EmployeeCardsApp> {
 
   @override
   Widget build(BuildContext context) {
-    final router = RouteApp.routes(changeLanguage);
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
 

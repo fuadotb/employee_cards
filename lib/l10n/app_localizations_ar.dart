@@ -52,4 +52,19 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get english => 'English';
+
+  @override
+  String get news => 'الأخبار';
+
+  @override
+  String get newsDetails => 'تفاصيل الخبر';
+
+  @override
+  String get allNews => 'الكل';
+
+  @override
+  String get noNews => 'لا توجد أخبار لعرضها';
+
+  @override
+  String get failedToLoadNews => 'تعذر تحميل الأخبار';
 }

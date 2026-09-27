@@ -1,5 +1,11 @@
+import 'dart:ui' as ui;
+
 import 'package:employee_cards/core/theme/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:pdf/pdf.dart';
+import 'package:pdf/widgets.dart' as pw;
+import 'package:printing/printing.dart';
 import '../models/employee.dart';
 import '../services/employee_api_service.dart';
 import '../widgets/employee_card_front.dart';
@@ -20,7 +26,10 @@ class _EmployeeCardPageState extends State<EmployeeCardPage> {
   Employee? employee;
 
   bool isLoading = false;
+  bool isExporting = false;
   String? errorMessage;
+
+  final GlobalKey _cardKey = GlobalKey();
 
   @override
   void dispose() {
@@ -68,6 +77,74 @@ class _EmployeeCardPageState extends State<EmployeeCardPage> {
     }
   }
 
+  Future<void> exportCardToPdf() async {
+    if (employee == null || isExporting) return;
+
+    try {
+      setState(() {
+        isExporting = true;
+      });
+
+      final boundary =
+          _cardKey.currentContext?.findRenderObject()
+              as RenderRepaintBoundary?;
+
+      if (boundary == null) {
+        throw Exception('تعذر العثور على البطاقة');
+      }
+
+      final uiImage = await boundary.toImage(pixelRatio: 3.0);
+      final byteData = await uiImage.toByteData(
+        format: ui.ImageByteFormat.png,
+      );
+
+      if (byteData == null) {
+        throw Exception('تعذر إنشاء صورة البطاقة');
+      }
+
+      final pngBytes = byteData.buffer.asUint8List();
+
+      final cardImage = pw.MemoryImage(pngBytes);
+
+      final pdf = pw.Document();
+
+      pdf.addPage(
+        pw.Page(
+          pageFormat: PdfPageFormat.a4,
+          build: (context) {
+            return pw.Center(
+              child: pw.Image(cardImage, width: 300),
+            );
+          },
+        ),
+      );
+
+      final pdfBytes = await pdf.save();
+
+      if (!mounted) return;
+
+      await Printing.layoutPdf(
+        onLayout: (_) async => pdfBytes,
+        name: 'employee_card_${employee!.id}.pdf',
+      );
+    } catch (e) {
+      if (!mounted) return;
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('حدث خطأ أثناء تصدير البطاقة: $e'),
+          backgroundColor: AppColors.error,
+        ),
+      );
+    } finally {
+      if (mounted) {
+        setState(() {
+          isExporting = false;
+        });
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Directionality(
@@ -111,12 +188,20 @@ class _EmployeeCardPageState extends State<EmployeeCardPage> {
             if (errorMessage != null && !isLoading)
               _buildError(),
 
-            if (employee != null && !isLoading)
+            if (employee != null && !isLoading) ...[
               Center(
-                child: EmployeeCardFront(
-                  employee: employee!,
+                child: RepaintBoundary(
+                  key: _cardKey,
+                  child: EmployeeCardFront(
+                    employee: employee!,
+                  ),
                 ),
               ),
+
+              const SizedBox(height: 20),
+
+              _buildExportButton(),
+            ],
 
             if (employee == null &&
                 errorMessage == null &&
@@ -236,6 +321,41 @@ class _EmployeeCardPageState extends State<EmployeeCardPage> {
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _buildExportButton() {
+    return SizedBox(
+      width: 340,
+      height: 52,
+      child: FilledButton.icon(
+        onPressed: isExporting ? null : exportCardToPdf,
+        style: FilledButton.styleFrom(
+          backgroundColor: AppColors.primary,
+          disabledBackgroundColor:
+              AppColors.primary.withValues(alpha: 0.5),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(14),
+          ),
+        ),
+        icon: isExporting
+            ? const SizedBox(
+                width: 18,
+                height: 18,
+                child: CircularProgressIndicator(
+                  strokeWidth: 2.5,
+                  color: Colors.white,
+                ),
+              )
+            : const Icon(Icons.picture_as_pdf_outlined),
+        label: Text(
+          isExporting ? 'جاري التصدير...' : 'تصدير البطاقة PDF',
+          style: const TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.w700,
+          ),
+        ),
       ),
     );
   }

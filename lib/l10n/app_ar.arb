@@ -14,5 +14,10 @@
   "retry": "إعادة المحاولة",
   "language": "اللغة",
   "arabic": "العربية",
-  "english": "English"
+  "english": "English",
+  "news": "الأخبار",
+  "newsDetails": "تفاصيل الخبر",
+  "allNews": "الكل",
+  "noNews": "لا توجد أخبار لعرضها",
+  "failedToLoadNews": "تعذر تحميل الأخبار"
 }

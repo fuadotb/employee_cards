@@ -3,4 +3,7 @@ class RouteKey {
   static const String services = '/services';
   static const String more = '/more';
   static const String employeeCard = '/employee-card';
+  static const String newsDetail = '/news/:id';
+
+  static String newsDetailPath(int newsId) => '/news/$newsId';
 }

@@ -7,6 +7,7 @@ import 'package:go_router/go_router.dart';
 
 import '../screens/home_page.dart';
 import '../screens/employee_card_page.dart';
+import '../screens/news_detail_page.dart';
 import 'route_key.dart';
 
 class RouteApp {
@@ -66,6 +67,17 @@ class RouteApp {
           path: RouteKey.employeeCard,
           builder: (context, state) {
             return const EmployeeCardPage();
+          },
+        ),
+
+        GoRoute(
+          path: RouteKey.newsDetail,
+          builder: (context, state) {
+            final newsId = int.tryParse(
+              state.pathParameters['id'] ?? '',
+            );
+
+            return NewsDetailPage(newsId: newsId ?? 0);
           },
         ),
       ],

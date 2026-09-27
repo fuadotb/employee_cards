@@ -184,6 +184,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'English'**
   String get english;
+
+  /// No description provided for @news.
+  ///
+  /// In en, this message translates to:
+  /// **'News'**
+  String get news;
+
+  /// No description provided for @newsDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'News Details'**
+  String get newsDetails;
+
+  /// No description provided for @allNews.
+  ///
+  /// In en, this message translates to:
+  /// **'All'**
+  String get allNews;
+
+  /// No description provided for @noNews.
+  ///
+  /// In en, this message translates to:
+  /// **'No news to display'**
+  String get noNews;
+
+  /// No description provided for @failedToLoadNews.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load news'**
+  String get failedToLoadNews;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

@@ -90,6 +90,8 @@ class EmployeeCardFront extends StatelessWidget {
                             ? Image.network(
                                 employee.avatarUrl,
                                 fit: BoxFit.cover,
+                                cacheWidth: 240,
+                                cacheHeight: 240,
                                 errorBuilder: (context, error, stackTrace) {
                                   return const Icon(
                                     Icons.person_rounded,

@@ -14,5 +14,10 @@
   "retry": "Retry",
   "language": "Language",
   "arabic": "العربية",
-  "english": "English"
+  "english": "English",
+  "news": "News",
+  "newsDetails": "News Details",
+  "allNews": "All",
+  "noNews": "No news to display",
+  "failedToLoadNews": "Failed to load news"
 }

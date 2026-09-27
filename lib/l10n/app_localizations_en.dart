@@ -52,4 +52,19 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get english => 'English';
+
+  @override
+  String get news => 'News';
+
+  @override
+  String get newsDetails => 'News Details';
+
+  @override
+  String get allNews => 'All';
+
+  @override
+  String get noNews => 'No news to display';
+
+  @override
+  String get failedToLoadNews => 'Failed to load news';
 }

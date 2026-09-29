@@ -76,4 +76,13 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get loadingAssistant => 'جاري تجهيز المساعد الذكي...';
+
+  @override
+  String get appearance => 'المظهر';
+
+  @override
+  String get light => 'فاتح';
+
+  @override
+  String get dark => 'داكن';
 }

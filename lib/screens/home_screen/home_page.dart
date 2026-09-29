@@ -39,9 +39,7 @@ class _HomePageState extends State<HomePage> {
         selectedCategoryId = categoryId;
       });
 
-      final feed = await _newsApiService.getNews(
-        categoryId: categoryId,
-      );
+      final feed = await _newsApiService.getNews(categoryId: categoryId);
 
       if (!mounted) return;
 
@@ -63,32 +61,34 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
+    final colorScheme = Theme.of(context).colorScheme;
 
     return Scaffold(
-      backgroundColor: AppColors.background,
+      backgroundColor: colorScheme.surface,
+
       appBar: AppBar(
-        backgroundColor: AppColors.surface,
+        backgroundColor: colorScheme.surface,
         elevation: 0,
         title: Text(
           l10n.home,
-          style: const TextStyle(
-            color: AppColors.textPrimary,
+          style: TextStyle(
+            color: colorScheme.onSurface,
             fontWeight: FontWeight.w700,
           ),
         ),
       ),
       body: RefreshIndicator(
-        color: AppColors.primary,
+        color: colorScheme.primary,
         onRefresh: () => _loadNews(categoryId: selectedCategoryId),
         child: ListView(
           padding: const EdgeInsets.fromLTRB(20, 16, 20, 30),
           children: [
             Text(
               l10n.news,
-              style: const TextStyle(
+              style: TextStyle(
                 fontSize: 17,
                 fontWeight: FontWeight.w800,
-                color: AppColors.textPrimary,
+                color: colorScheme.onSurface,
               ),
             ),
 
@@ -132,13 +132,12 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _buildContent(AppLocalizations l10n) {
+    final colorScheme = Theme.of(context).colorScheme;
     if (isLoading) {
-      return const Padding(
+      return Padding(
         padding: EdgeInsets.symmetric(vertical: 60),
         child: Center(
-          child: CircularProgressIndicator(
-            color: AppColors.primary,
-          ),
+          child: CircularProgressIndicator(color: colorScheme.primary),
         ),
       );
     }
@@ -148,9 +147,9 @@ class _HomePageState extends State<HomePage> {
         padding: const EdgeInsets.symmetric(vertical: 40),
         child: Column(
           children: [
-            const Icon(
+            Icon(
               Icons.error_outline_rounded,
-              color: AppColors.error,
+              color: colorScheme.error,
               size: 36,
             ),
 
@@ -159,10 +158,7 @@ class _HomePageState extends State<HomePage> {
             Text(
               l10n.failedToLoadNews,
               textAlign: TextAlign.center,
-              style: const TextStyle(
-                color: AppColors.error,
-                fontSize: 13,
-              ),
+              style: TextStyle(color: colorScheme.error, fontSize: 13),
             ),
 
             const SizedBox(height: 14),
@@ -170,7 +166,7 @@ class _HomePageState extends State<HomePage> {
             FilledButton(
               onPressed: () => _loadNews(categoryId: selectedCategoryId),
               style: FilledButton.styleFrom(
-                backgroundColor: AppColors.primary,
+                backgroundColor: colorScheme.primary,
               ),
               child: Text(l10n.retry),
             ),
@@ -185,10 +181,7 @@ class _HomePageState extends State<HomePage> {
         child: Center(
           child: Text(
             l10n.noNews,
-            style: const TextStyle(
-              color: AppColors.textSecondary,
-              fontSize: 13,
-            ),
+            style: TextStyle(color: colorScheme.onSurfaceVariant, fontSize: 13),
           ),
         ),
       );
@@ -224,6 +217,7 @@ class _CategoryChip extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
     return InkWell(
       onTap: onTap,
       borderRadius: BorderRadius.circular(20),
@@ -231,10 +225,10 @@ class _CategoryChip extends StatelessWidget {
         alignment: Alignment.center,
         padding: const EdgeInsets.symmetric(horizontal: 16),
         decoration: BoxDecoration(
-          color: selected ? AppColors.primary : AppColors.surface,
+          color: selected ? colorScheme.primary : colorScheme.surface,
           borderRadius: BorderRadius.circular(20),
           border: Border.all(
-            color: selected ? AppColors.primary : AppColors.border,
+            color: selected ? colorScheme.primary : colorScheme.outlineVariant.withValues(alpha: 0.25),
           ),
         ),
         child: Text(
@@ -242,7 +236,7 @@ class _CategoryChip extends StatelessWidget {
           style: TextStyle(
             fontSize: 12.5,
             fontWeight: FontWeight.w600,
-            color: selected ? Colors.white : AppColors.textPrimary,
+            color: selected ? colorScheme.onPrimary : colorScheme.onSurface,
           ),
         ),
       ),

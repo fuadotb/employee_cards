@@ -18,6 +18,7 @@ class NavItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
     return Expanded(
       child: GestureDetector(
         onTap: onTap,
@@ -26,13 +27,10 @@ class NavItem extends StatelessWidget {
           duration: const Duration(milliseconds: 250),
           curve: Curves.easeOut,
           margin: const EdgeInsets.symmetric(horizontal: 3),
-          padding: const EdgeInsets.symmetric(
-            vertical: 10,
-            horizontal: 8,
-          ),
+          padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 8),
           decoration: BoxDecoration(
             color: selected
-                ? AppColors.primary.withValues(alpha: 0.10)
+                ? colorScheme.primary.withValues(alpha: 0.10)
                 : Colors.transparent,
             borderRadius: BorderRadius.circular(18),
           ),
@@ -43,19 +41,18 @@ class NavItem extends StatelessWidget {
                 selected ? selectedIcon : icon,
                 size: 22,
                 color: selected
-                    ? AppColors.primary
-                    : AppColors.textSecondary,
+                    ? colorScheme.primary
+                    : colorScheme.onSurfaceVariant,
               ),
               const SizedBox(height: 4),
               AnimatedDefaultTextStyle(
                 duration: const Duration(milliseconds: 200),
                 style: TextStyle(
                   fontSize: 11,
-                  fontWeight:
-                      selected ? FontWeight.w700 : FontWeight.w500,
+                  fontWeight: selected ? FontWeight.w700 : FontWeight.w500,
                   color: selected
-                      ? AppColors.primary
-                      : AppColors.textSecondary,
+                      ? colorScheme.primary
+                      : colorScheme.onSurfaceVariant,
                 ),
                 child: Text(label),
               ),

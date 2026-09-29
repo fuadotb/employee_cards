@@ -19,7 +19,8 @@ class _AssistantPageState extends State<AssistantPage> {
   // it is visible in that page's source to any visitor.
   static const String _botConfigsToken = 'YTMTM1=I';
 
-  static const String _widgetHtml = '''
+  static const String _widgetHtml =
+      '''
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -101,10 +102,7 @@ class _AssistantPageState extends State<AssistantPage> {
           },
         ),
       )
-      ..loadHtmlString(
-        _widgetHtml,
-        baseUrl: 'https://uqu.edu.sa/',
-      );
+      ..loadHtmlString(_widgetHtml, baseUrl: 'https://uqu.edu.sa/');
 
     // Safety net: if the "ready" event never fires (slow network,
     // widget failure), stop showing the spinner instead of hanging.
@@ -115,68 +113,70 @@ class _AssistantPageState extends State<AssistantPage> {
       });
     });
   }
+@override
+Widget build(BuildContext context) {
+  final l10n = AppLocalizations.of(context)!;
+  final colorScheme = Theme.of(context).colorScheme;
 
-  @override
-  Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
+  return Scaffold(
+    backgroundColor: colorScheme.surface,
 
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: AppColors.surface,
-        elevation: 0,
-        title: Text(
-          l10n.aiAssistant,
-          style: const TextStyle(
-            color: AppColors.textPrimary,
-            fontWeight: FontWeight.w700,
-          ),
+    appBar: AppBar(
+      backgroundColor: colorScheme.surface,
+      elevation: 0,
+      title: Text(
+        l10n.aiAssistant,
+        style: TextStyle(
+          color: colorScheme.onSurface,
+          fontWeight: FontWeight.w700,
         ),
       ),
-      body: Stack(
-        children: [
-          WebViewWidget(controller: _controller),
+    ),
 
-          if (isLoading)
-            Container(
-              color: Colors.white,
-              alignment: Alignment.center,
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  const CircularProgressIndicator(
-                    color: AppColors.primary,
-                  ),
+    body: Stack(
+      children: [
+        WebViewWidget(
+          controller: _controller,
+        ),
 
-                  const SizedBox(height: 14),
-
-                  Text(
-                    l10n.loadingAssistant,
-                    style: const TextStyle(
-                      fontSize: 13,
-                      color: AppColors.textSecondary,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-
-          if (hasError)
-            Center(
-              child: Padding(
-                padding: const EdgeInsets.all(24),
-                child: Text(
-                  l10n.failedToLoadAssistant,
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(
-                    color: AppColors.error,
+        if (isLoading)
+          Container(
+            color: colorScheme.surface,
+            alignment: Alignment.center,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                CircularProgressIndicator(
+                  color: colorScheme.primary,
+                ),
+                const SizedBox(height: 14),
+                Text(
+                  l10n.loadingAssistant,
+                  style: TextStyle(
                     fontSize: 13,
+                    color: colorScheme.onSurfaceVariant,
                   ),
+                ),
+              ],
+            ),
+          ),
+
+        if (hasError)
+          Center(
+            child: Padding(
+              padding: const EdgeInsets.all(24),
+              child: Text(
+                l10n.failedToLoadAssistant,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: colorScheme.error,
+                  fontSize: 13,
                 ),
               ),
             ),
-        ],
-      ),
-    );
-  }
+          ),
+      ],
+    ),
+  );
+}
 }

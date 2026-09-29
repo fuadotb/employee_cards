@@ -1,3 +1,4 @@
+import 'package:employee_cards/core/theme/app_theme.dart';
 import 'package:employee_cards/routes/route_app.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -16,8 +17,13 @@ class EmployeeCardsApp extends StatefulWidget {
 
 class _EmployeeCardsAppState extends State<EmployeeCardsApp> {
   Locale _locale = const Locale('ar');
+  ThemeMode _themeMode = ThemeMode.system;
 
-  late final router = RouteApp.routes(changeLanguage);
+  late final router = RouteApp.routes(
+    changeLanguage,
+    changeTheme,
+    () => _themeMode,
+  );
 
   void changeLanguage(Locale locale) {
     setState(() {
@@ -25,30 +31,27 @@ class _EmployeeCardsAppState extends State<EmployeeCardsApp> {
     });
   }
 
+  void changeTheme(ThemeMode themeMode) {
+    setState(() {
+      _themeMode = themeMode;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
-
       locale: _locale,
-
       supportedLocales: const [Locale('ar'), Locale('en')],
-
       localizationsDelegates: const [
         AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
-
-      theme: ThemeData(
-        useMaterial3: true,
-        colorSchemeSeed: const Color(0xFF006870),
-      ),
-
-      // home: HomePage(
-      //   onLanguageChanged: changeLanguage,
-      // ),
+      theme: AppTheme.lightTheme,
+      darkTheme: AppTheme.darkTheme,
+      themeMode: _themeMode,
       routerDelegate: router.routerDelegate,
       routeInformationParser: router.routeInformationParser,
       routeInformationProvider: router.routeInformationProvider,

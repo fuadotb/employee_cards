@@ -1,3 +1,4 @@
+
 import 'package:employee_cards/widgets/Info_Item.dart';
 import 'package:flutter/material.dart';
 import '../models/employee.dart';
@@ -9,20 +10,21 @@ class EmployeeCardFront extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const teal = Color(0xFF006870);
-    const dark = Color(0xFF1E2930);
-    const lightBackground = Color(0xFFF7F9F9);
+    final colorScheme = Theme.of(context).colorScheme;
+
 
     return Container(
       width: 340,
       height: 540,
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: colorScheme.surface,
         borderRadius: BorderRadius.circular(24),
-        border: Border.all(color: const Color(0xFFE5EAEA)),
+        border: Border.all(
+          color: colorScheme.outlineVariant.withValues(alpha: 0.25),
+        ),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withValues(alpha: 0.08),
+            color: colorScheme.shadow.withValues(alpha: 0.08),
             blurRadius: 24,
             offset: const Offset(0, 10),
           ),
@@ -36,7 +38,9 @@ class EmployeeCardFront extends StatelessWidget {
             Container(
               width: double.infinity,
               padding: const EdgeInsets.fromLTRB(20, 18, 20, 16),
-              decoration: const BoxDecoration(color: lightBackground),
+              decoration: BoxDecoration(
+                color: colorScheme.surfaceContainerHighest,
+              ),
               child: Column(
                 children: [
                   Image.asset(
@@ -52,7 +56,7 @@ class EmployeeCardFront extends StatelessWidget {
                     width: 42,
                     height: 3,
                     decoration: BoxDecoration(
-                      color: teal,
+                      color: colorScheme.primary,
                       borderRadius: BorderRadius.circular(10),
                     ),
                   ),
@@ -75,11 +79,14 @@ class EmployeeCardFront extends StatelessWidget {
                       padding: const EdgeInsets.all(4),
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
-                        color: Colors.white,
-                        border: Border.all(color: teal, width: 2.5),
+                        color: colorScheme.surface,
+                        border: Border.all(
+                          color: colorScheme.primary,
+                          width: 2.5,
+                        ),
                         boxShadow: [
                           BoxShadow(
-                            color: teal.withValues(alpha: 0.12),
+                            color: colorScheme.primary.withValues(alpha: 0.12),
                             blurRadius: 12,
                             offset: const Offset(0, 5),
                           ),
@@ -93,17 +100,17 @@ class EmployeeCardFront extends StatelessWidget {
                                 cacheWidth: 240,
                                 cacheHeight: 240,
                                 errorBuilder: (context, error, stackTrace) {
-                                  return const Icon(
+                                  return Icon(
                                     Icons.person_rounded,
                                     size: 68,
-                                    color: teal,
+                                    color: colorScheme.primary,
                                   );
                                 },
                               )
-                            : const Icon(
+                            : Icon(
                                 Icons.person_rounded,
                                 size: 68,
-                                color: teal,
+                                color: colorScheme.primary,
                               ),
                       ),
                     ),
@@ -117,15 +124,15 @@ class EmployeeCardFront extends StatelessWidget {
                         vertical: 5,
                       ),
                       decoration: BoxDecoration(
-                        color: const Color(0xFFEAF4F4),
+                        color: colorScheme.primary.withValues(alpha: 0.10),
                         borderRadius: BorderRadius.circular(20),
                       ),
                       child: Text(
                         employee.id.toString(),
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontSize: 13,
                           fontWeight: FontWeight.w700,
-                          color: teal,
+                          color: colorScheme.primary,
                           letterSpacing: 0.5,
                         ),
                       ),
@@ -139,10 +146,10 @@ class EmployeeCardFront extends StatelessWidget {
                       textAlign: TextAlign.center,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.w800,
-                        color: dark,
+                        color: colorScheme.onSurface,
                       ),
                     ),
 
@@ -154,10 +161,10 @@ class EmployeeCardFront extends StatelessWidget {
                       textAlign: TextAlign.center,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontSize: 12.5,
                         fontWeight: FontWeight.w500,
-                        color: Colors.grey,
+                        color: colorScheme.onSurfaceVariant,
                       ),
                     ),
 
@@ -171,17 +178,19 @@ class EmployeeCardFront extends StatelessWidget {
                         vertical: 10,
                       ),
                       decoration: BoxDecoration(
-                        color: lightBackground,
+                        color: colorScheme.surfaceContainerHighest,
                         borderRadius: BorderRadius.circular(12),
-                        border: Border.all(color: const Color(0xFFE6EEEE)),
+                        border: Border.all(
+                          color: colorScheme.outlineVariant.withValues(alpha: 0.25),
+                        ),
                       ),
-                      child: const Text(
+                      child: Text(
                         'عمادة تقنية المعلومات والتعليم الإلكتروني',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontSize: 13,
                           fontWeight: FontWeight.w600,
-                          color: teal,
+                          color: colorScheme.primary,
                           height: 1.4,
                         ),
                       ),
@@ -207,10 +216,15 @@ class EmployeeCardFront extends StatelessWidget {
             ),
 
             // Bottom Accent
-            Container(width: double.infinity, height: 8, color: teal),
+            Container(
+              width: double.infinity,
+              height: 8,
+              color: colorScheme.primary,
+            ),
           ],
         ),
       ),
     );
   }
 }
+

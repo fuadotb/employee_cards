@@ -76,4 +76,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get loadingAssistant => 'Preparing the assistant...';
+
+  @override
+  String get appearance => 'Appearance';
+
+  @override
+  String get light => 'Light';
+
+  @override
+  String get dark => 'Dark';
 }

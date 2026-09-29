@@ -22,5 +22,8 @@
   "failedToLoadNews": "تعذر تحميل الأخبار",
   "aiAssistant": "المساعد الذكي",
   "failedToLoadAssistant": "تعذر تحميل المساعد الذكي",
-  "loadingAssistant": "جاري تجهيز المساعد الذكي..."
+  "loadingAssistant": "جاري تجهيز المساعد الذكي...",
+  "appearance": "المظهر",
+"light": "فاتح",
+"dark": "داكن"
 }

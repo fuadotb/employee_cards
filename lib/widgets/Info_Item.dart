@@ -15,7 +15,8 @@ class InfoItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const teal = Color(0xFF006870);
+    final colorScheme = Theme.of(context).colorScheme;
+
 
     return Container(
       padding: const EdgeInsets.symmetric(
@@ -23,10 +24,10 @@ class InfoItem extends StatelessWidget {
         vertical: 9,
       ),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: colorScheme.surface,
         borderRadius: BorderRadius.circular(12),
         border: Border.all(
-          color: const Color(0xFFE6EEEE),
+          color: colorScheme.outlineVariant.withValues(alpha: 0.25),
         ),
       ),
       child: Column(
@@ -34,14 +35,14 @@ class InfoItem extends StatelessWidget {
           Icon(
             icon,
             size: 18,
-            color: teal,
+            color: colorScheme.primary,
           ),
           const SizedBox(height: 4),
           Text(
             title,
-            style: const TextStyle(
+            style: TextStyle(
               fontSize: 10,
-              color: Colors.grey,
+              color: colorScheme.onSurfaceVariant,
             ),
           ),
           const SizedBox(height: 2),
@@ -50,10 +51,10 @@ class InfoItem extends StatelessWidget {
             textAlign: TextAlign.center,
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
-            style: const TextStyle(
+            style: TextStyle(
               fontSize: 11,
               fontWeight: FontWeight.w700,
-              color: Color(0xFF30383B),
+              color: colorScheme.onSurface,
             ),
           ),
         ],

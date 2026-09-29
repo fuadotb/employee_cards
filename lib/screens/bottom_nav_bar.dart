@@ -20,18 +20,19 @@ class BottomNavBar extends StatelessWidget {
   Widget build(BuildContext context) {
     final currentIndex = navigationShell.currentIndex;
     final local = AppLocalizations.of(context)!;
+    final colorScheme = Theme.of(context).colorScheme;
 
     return SafeArea(
       child: Container(
         margin: const EdgeInsets.fromLTRB(16, 0, 16, 12),
         padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
-          color: AppColors.surface,
+             color: colorScheme.surface,
           borderRadius: BorderRadius.circular(24),
-          border: Border.all(color: AppColors.border),
+          border: Border.all( color: colorScheme.outlineVariant.withValues(alpha: 0.25),),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withValues(alpha: 0.08),
+              color: colorScheme.shadow.withValues(alpha: 0.15),
               blurRadius: 20,
               offset: const Offset(0, 8),
             ),

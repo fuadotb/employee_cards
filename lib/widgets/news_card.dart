@@ -18,19 +18,21 @@ class NewsCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final createdAt = news.createdAt;
+        final colorScheme = Theme.of(context).colorScheme;
 
     return Material(
-      color: Colors.transparent,
+            color: Colors.transparent,
       child: InkWell(
         onTap: onTap,
         borderRadius: BorderRadius.circular(20),
         child: Container(
           decoration: BoxDecoration(
-            color: AppColors.surface,
+           color: colorScheme.surface,
+
             borderRadius: BorderRadius.circular(20),
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withValues(alpha: 0.04),
+                color: Colors.black.withValues(alpha: 0.25),
                 blurRadius: 20,
                 offset: const Offset(0, 6),
               ),
@@ -119,11 +121,11 @@ class NewsCard extends StatelessWidget {
                         news.title,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(
+                        style:  TextStyle(
                           fontSize: 15,
                           fontWeight: FontWeight.w700,
                           height: 1.4,
-                          color: AppColors.textPrimary,
+                         color: colorScheme.onSurface,
                         ),
                       ),
                     ),
@@ -135,15 +137,15 @@ class NewsCard extends StatelessWidget {
                       width: 34,
                       height: 34,
                       decoration: BoxDecoration(
-                        color: AppColors.primaryLight.withValues(
-                          alpha: 0.25,
+                       color: colorScheme.primary.withValues(
+                          alpha: 0.10,
                         ),
                         shape: BoxShape.circle,
                       ),
-                      child: const Icon(
+                      child:  Icon(
                         Icons.arrow_forward_rounded,
                         size: 17,
-                        color: AppColors.primary,
+                         color: colorScheme.primary,
                       ),
                     ),
                   ],
@@ -158,7 +160,7 @@ class NewsCard extends StatelessWidget {
 
   Widget _placeholderImage() {
     return Container(
-      color: AppColors.primaryLight.withValues(alpha: 0.2),
+      color: const Color.fromARGB(255, 21, 87, 87).withValues(alpha: 0.2),
       alignment: Alignment.center,
       child: const Icon(
         Icons.image_outlined,

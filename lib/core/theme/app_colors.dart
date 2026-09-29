@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 
 class AppColors {
@@ -21,4 +19,5 @@ class AppColors {
   static const Color errorBorder = Color(0xFFFFDADA);
 
   static const Color primaryLight = Color(0xFFEAF4F4);
+
 }

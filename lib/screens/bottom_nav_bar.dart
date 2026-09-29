@@ -19,7 +19,7 @@ class BottomNavBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final currentIndex = navigationShell.currentIndex;
-     final local = AppLocalizations.of(context)!;
+    final local = AppLocalizations.of(context)!;
 
     return SafeArea(
       child: Container(
@@ -42,7 +42,7 @@ class BottomNavBar extends StatelessWidget {
             NavItem(
               icon: Icons.home_outlined,
               selectedIcon: Icons.home_rounded,
-              label:local.home,
+              label: local.home,
               selected: currentIndex == 0,
               onTap: () => _onTap(context, 0),
             ),

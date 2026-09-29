@@ -6,9 +6,9 @@ import 'package:flutter/rendering.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:printing/printing.dart';
-import '../models/employee.dart';
-import '../services/employee_api_service.dart';
-import '../widgets/employee_card_front.dart';
+import '../../models/employee.dart';
+import '../../services/employee_api_service.dart';
+import '../../widgets/employee_card_front.dart';
 
 class EmployeeCardPage extends StatefulWidget {
   const EmployeeCardPage({super.key});

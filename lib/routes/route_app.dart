@@ -6,9 +6,9 @@ import 'package:employee_cards/screens/services.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../screens/home_page.dart';
-import '../screens/employee_card_page.dart';
-import '../screens/news_detail_page.dart';
+import '../screens/home_screen/home_page.dart';
+import '../screens/emplyee/employee_card_page.dart';
+import '../screens/home_screen/news_detail_page.dart';
 import '../screens/assistant_page.dart';
 import 'route_key.dart';
 

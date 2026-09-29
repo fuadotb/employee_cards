@@ -19,5 +19,8 @@
   "newsDetails": "تفاصيل الخبر",
   "allNews": "الكل",
   "noNews": "لا توجد أخبار لعرضها",
-  "failedToLoadNews": "تعذر تحميل الأخبار"
+  "failedToLoadNews": "تعذر تحميل الأخبار",
+  "aiAssistant": "المساعد الذكي",
+  "failedToLoadAssistant": "تعذر تحميل المساعد الذكي",
+  "loadingAssistant": "جاري تجهيز المساعد الذكي..."
 }

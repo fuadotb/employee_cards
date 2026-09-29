@@ -1,4 +1,5 @@
 
+import 'package:employee_cards/core/theme/app_colors.dart';
 import 'package:employee_cards/screens/bottom_nav_bar.dart';
 import 'package:employee_cards/screens/more.dart';
 import 'package:employee_cards/screens/services.dart';
@@ -8,6 +9,7 @@ import 'package:go_router/go_router.dart';
 import '../screens/home_page.dart';
 import '../screens/employee_card_page.dart';
 import '../screens/news_detail_page.dart';
+import '../screens/assistant_page.dart';
 import 'route_key.dart';
 
 class RouteApp {
@@ -80,6 +82,13 @@ class RouteApp {
             return NewsDetailPage(newsId: newsId ?? 0);
           },
         ),
+
+        GoRoute(
+          path: RouteKey.assistant,
+          builder: (context, state) {
+            return const AssistantPage();
+          },
+        ),
       ],
     );
   }
@@ -97,6 +106,17 @@ class MainShell extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: navigationShell,
+
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: AppColors.primary,
+        onPressed: () {
+          context.push(RouteKey.assistant);
+        },
+        child: const Icon(
+          Icons.support_agent_rounded,
+          color: Colors.white,
+        ),
+      ),
 
       bottomNavigationBar: BottomNavBar(
         navigationShell: navigationShell,

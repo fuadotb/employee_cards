@@ -19,5 +19,8 @@
   "newsDetails": "News Details",
   "allNews": "All",
   "noNews": "No news to display",
-  "failedToLoadNews": "Failed to load news"
+  "failedToLoadNews": "Failed to load news",
+  "aiAssistant": "AI Assistant",
+  "failedToLoadAssistant": "Failed to load the assistant",
+  "loadingAssistant": "Preparing the assistant..."
 }

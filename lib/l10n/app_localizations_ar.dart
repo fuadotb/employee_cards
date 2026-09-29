@@ -67,4 +67,13 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get failedToLoadNews => 'تعذر تحميل الأخبار';
+
+  @override
+  String get aiAssistant => 'المساعد الذكي';
+
+  @override
+  String get failedToLoadAssistant => 'تعذر تحميل المساعد الذكي';
+
+  @override
+  String get loadingAssistant => 'جاري تجهيز المساعد الذكي...';
 }

@@ -67,4 +67,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get failedToLoadNews => 'Failed to load news';
+
+  @override
+  String get aiAssistant => 'AI Assistant';
+
+  @override
+  String get failedToLoadAssistant => 'Failed to load the assistant';
+
+  @override
+  String get loadingAssistant => 'Preparing the assistant...';
 }

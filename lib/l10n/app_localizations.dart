@@ -214,6 +214,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Failed to load news'**
   String get failedToLoadNews;
+
+  /// No description provided for @aiAssistant.
+  ///
+  /// In en, this message translates to:
+  /// **'AI Assistant'**
+  String get aiAssistant;
+
+  /// No description provided for @failedToLoadAssistant.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load the assistant'**
+  String get failedToLoadAssistant;
+
+  /// No description provided for @loadingAssistant.
+  ///
+  /// In en, this message translates to:
+  /// **'Preparing the assistant...'**
+  String get loadingAssistant;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

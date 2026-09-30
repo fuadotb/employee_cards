@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../l10n/app_localizations.dart';
@@ -18,12 +17,28 @@ class ServicesPage extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: colorScheme.surface,
         elevation: 0,
-        title: Text(
-          l10n.services,
-          style: TextStyle(
-            color: colorScheme.onSurface,
-            fontWeight: FontWeight.w700,
-          ),
+        title: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              width: 4,
+              height: 22,
+              decoration: BoxDecoration(
+                color: colorScheme.primary,
+                borderRadius: BorderRadius.circular(10),
+              ),
+            ),
+            const SizedBox(width: 10),
+            Text(
+              l10n.services,
+              style: TextStyle(
+                color: colorScheme.onSurface,
+                fontSize: 19,
+                fontWeight: FontWeight.w800,
+                letterSpacing: -0.2,
+              ),
+            ),
+          ],
         ),
       ),
 
@@ -82,10 +97,7 @@ class _ServiceCard extends StatelessWidget {
                 color: colorScheme.primary.withValues(alpha: 0.12),
                 shape: BoxShape.circle,
               ),
-              child: Icon(
-                icon,
-                color: colorScheme.primary,
-              ),
+              child: Icon(icon, color: colorScheme.primary),
             ),
 
             const SizedBox(width: 16),
@@ -112,4 +124,3 @@ class _ServiceCard extends StatelessWidget {
     );
   }
 }
-

@@ -1,4 +1,4 @@
-import 'package:employee_cards/core/theme/app_colors.dart';
+
 import 'package:flutter/material.dart';
 
 class NavItem extends StatelessWidget {

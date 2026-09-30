@@ -1,4 +1,3 @@
-import 'package:employee_cards/core/theme/app_colors.dart';
 import 'package:employee_cards/l10n/app_localizations.dart';
 import 'package:employee_cards/models/news_category.dart';
 import 'package:employee_cards/models/news_item.dart';
@@ -45,7 +44,11 @@ class _HomePageState extends State<HomePage> {
 
       setState(() {
         news = feed.news;
-        if (categories.isEmpty) categories = feed.categories;
+
+        if (categories.isEmpty) {
+          categories = feed.categories;
+        }
+
         isLoading = false;
       });
     } catch (e) {
@@ -69,20 +72,142 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         backgroundColor: colorScheme.surface,
         elevation: 0,
-        title: Text(
-          l10n.home,
-          style: TextStyle(
-            color: colorScheme.onSurface,
-            fontWeight: FontWeight.w700,
-          ),
+        title: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              width: 4,
+              height: 22,
+              decoration: BoxDecoration(
+                color: colorScheme.primary,
+                borderRadius: BorderRadius.circular(10),
+              ),
+            ),
+            const SizedBox(width: 10),
+            Text(
+              l10n.home,
+              style: TextStyle(
+                color: colorScheme.onSurface,
+                fontSize: 19,
+                fontWeight: FontWeight.w800,
+                letterSpacing: -0.2,
+              ),
+            ),
+          ],
         ),
       ),
+
       body: RefreshIndicator(
         color: colorScheme.primary,
         onRefresh: () => _loadNews(categoryId: selectedCategoryId),
         child: ListView(
           padding: const EdgeInsets.fromLTRB(20, 16, 20, 30),
           children: [
+            // ─────────────────────────────
+            // UQU Header
+            // ─────────────────────────────
+            Container(
+              width: double.infinity,
+              height: 145,
+              decoration: BoxDecoration(
+                color: colorScheme.surface,
+                borderRadius: BorderRadius.circular(20),
+                border: Border.all(
+                  color: colorScheme.brightness == Brightness.dark
+                      ? colorScheme.outlineVariant.withValues(alpha: 0.10)
+                      : colorScheme.outlineVariant.withValues(alpha: 0.30),
+                ),
+              ),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(20),
+                child: Stack(
+                  children: [
+                    // Gold accent
+                    PositionedDirectional(
+                      start: 0,
+                      top: 0,
+                      bottom: 0,
+                      child: Container(width: 5, color: colorScheme.secondary),
+                    ),
+
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 22,
+                        vertical: 16,
+                      ),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  'جامعة أم القرى',
+                                  style: TextStyle(
+                                    fontSize: 21,
+                                    fontWeight: FontWeight.w800,
+                                    color: colorScheme.onSurface,
+                                  ),
+                                ),
+
+                                const SizedBox(height: 6),
+
+                                Text(
+                                  'Umm Al-Qura University',
+                                  style: TextStyle(
+                                    fontSize: 11.5,
+                                    fontWeight: FontWeight.w500,
+                                    color: colorScheme.onSurfaceVariant,
+                                  ),
+                                ),
+
+                                const SizedBox(height: 10),
+
+                                Container(
+                                  width: 42,
+                                  height: 3,
+                                  decoration: BoxDecoration(
+                                    color: colorScheme.secondary,
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+
+                          const SizedBox(width: 12),
+                          Container(
+                            width: 100,
+                            height: 100,
+                            padding: const EdgeInsets.all(8),
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                color: colorScheme.secondary,
+                                width: 1.5,
+                              ),
+                              shape: BoxShape.circle,
+                            ),
+                            child: ClipOval(
+                              child: Image.asset(
+                                'assets/images/uqu_logo_fixed.png',
+                                fit: BoxFit.contain,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+
+            const SizedBox(height: 24),
+
+            // ─────────────────────────────
+            // News
+            // ─────────────────────────────
             Text(
               l10n.news,
               style: TextStyle(
@@ -133,9 +258,10 @@ class _HomePageState extends State<HomePage> {
 
   Widget _buildContent(AppLocalizations l10n) {
     final colorScheme = Theme.of(context).colorScheme;
+
     if (isLoading) {
       return Padding(
-        padding: EdgeInsets.symmetric(vertical: 60),
+        padding: const EdgeInsets.symmetric(vertical: 60),
         child: Center(
           child: CircularProgressIndicator(color: colorScheme.primary),
         ),
@@ -218,6 +344,7 @@ class _CategoryChip extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
+
     return InkWell(
       onTap: onTap,
       borderRadius: BorderRadius.circular(20),
@@ -228,7 +355,9 @@ class _CategoryChip extends StatelessWidget {
           color: selected ? colorScheme.primary : colorScheme.surface,
           borderRadius: BorderRadius.circular(20),
           border: Border.all(
-            color: selected ? colorScheme.primary : colorScheme.outlineVariant.withValues(alpha: 0.25),
+            color: selected
+                ? colorScheme.primary
+                : colorScheme.outlineVariant.withValues(alpha: 0.25),
           ),
         ),
         child: Text(

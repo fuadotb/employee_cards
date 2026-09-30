@@ -38,8 +38,7 @@ class _EmployeeCardPageState extends State<EmployeeCardPage> {
   }
 
   Future<void> searchEmployee() async {
-    final employeeNumber =
-        _employeeNumberController.text.trim();
+    final employeeNumber = _employeeNumberController.text.trim();
 
     if (employeeNumber.isEmpty) {
       setState(() {
@@ -55,8 +54,7 @@ class _EmployeeCardPageState extends State<EmployeeCardPage> {
         employee = null;
       });
 
-      final loadedEmployee =
-          await _apiService.getEmployee(
+      final loadedEmployee = await _apiService.getEmployee(
         employeeNumber: employeeNumber,
       );
 
@@ -86,17 +84,14 @@ class _EmployeeCardPageState extends State<EmployeeCardPage> {
       });
 
       final boundary =
-          _cardKey.currentContext?.findRenderObject()
-              as RenderRepaintBoundary?;
+          _cardKey.currentContext?.findRenderObject() as RenderRepaintBoundary?;
 
       if (boundary == null) {
         throw Exception('تعذر العثور على البطاقة');
       }
 
       final uiImage = await boundary.toImage(pixelRatio: 3.0);
-      final byteData = await uiImage.toByteData(
-        format: ui.ImageByteFormat.png,
-      );
+      final byteData = await uiImage.toByteData(format: ui.ImageByteFormat.png);
 
       if (byteData == null) {
         throw Exception('تعذر إنشاء صورة البطاقة');
@@ -112,9 +107,7 @@ class _EmployeeCardPageState extends State<EmployeeCardPage> {
         pw.Page(
           pageFormat: PdfPageFormat.a4,
           build: (context) {
-            return pw.Center(
-              child: pw.Image(cardImage, width: 300),
-            );
+            return pw.Center(child: pw.Image(cardImage, width: 300));
           },
         ),
       );
@@ -147,32 +140,30 @@ class _EmployeeCardPageState extends State<EmployeeCardPage> {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
-        backgroundColor: AppColors.background,
+        backgroundColor: colorScheme.surface,
 
         appBar: AppBar(
           elevation: 0,
           centerTitle: true,
-          backgroundColor: AppColors.primary,
-          foregroundColor: Colors.white,
-          title: const Text(
+          backgroundColor: colorScheme.surface,
+         
+          title: Text(
             'بطاقة الموظف',
             style: TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.w700,
+              color: colorScheme.primary,
             ),
           ),
         ),
 
         body: ListView(
-          padding: const EdgeInsets.fromLTRB(
-            20,
-            20,
-            20,
-            30,
-          ),
+          padding: const EdgeInsets.fromLTRB(20, 20, 20, 30),
           children: [
             _buildHeader(),
 
@@ -182,19 +173,15 @@ class _EmployeeCardPageState extends State<EmployeeCardPage> {
 
             const SizedBox(height: 24),
 
-            if (isLoading)
-              _buildLoading(),
+            if (isLoading) _buildLoading(),
 
-            if (errorMessage != null && !isLoading)
-              _buildError(),
+            if (errorMessage != null && !isLoading) _buildError(),
 
             if (employee != null && !isLoading) ...[
               Center(
                 child: RepaintBoundary(
                   key: _cardKey,
-                  child: EmployeeCardFront(
-                    employee: employee!,
-                  ),
+                  child: EmployeeCardFront(employee: employee!),
                 ),
               ),
 
@@ -203,9 +190,7 @@ class _EmployeeCardPageState extends State<EmployeeCardPage> {
               _buildExportButton(),
             ],
 
-            if (employee == null &&
-                errorMessage == null &&
-                !isLoading)
+            if (employee == null && errorMessage == null && !isLoading)
               _buildEmptyState(),
           ],
         ),
@@ -214,6 +199,8 @@ class _EmployeeCardPageState extends State<EmployeeCardPage> {
   }
 
   Widget _buildHeader() {
+    final colorScheme = Theme.of(context).colorScheme;
+
     return Column(
       children: [
         const SizedBox(height: 6),
@@ -221,27 +208,26 @@ class _EmployeeCardPageState extends State<EmployeeCardPage> {
         Text(
           'أدخل رقم الموظف لعرض بيانات البطاقة',
           textAlign: TextAlign.center,
-          style: TextStyle(
-            fontSize: 13,
-            color: AppColors.textSecondary,
-          ),
+          style: TextStyle(fontSize: 13, color: colorScheme.onSurfaceVariant),
         ),
       ],
     );
   }
 
   Widget _buildSearch() {
+    final colorScheme = Theme.of(context).colorScheme;
+
     return Container(
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: AppColors.surface,
+        color: colorScheme.surface,
         borderRadius: BorderRadius.circular(18),
         border: Border.all(
-          color: AppColors.border,
+          color: colorScheme.outlineVariant.withValues(alpha: 0.20),
         ),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withValues(alpha: 0.04),
+            color: colorScheme.shadow.withValues(alpha: 0.04),
             blurRadius: 15,
             offset: const Offset(0, 6),
           ),
@@ -258,28 +244,34 @@ class _EmployeeCardPageState extends State<EmployeeCardPage> {
               decoration: InputDecoration(
                 labelText: 'رقم الموظف',
                 hintText: 'مثال: 123456',
-                prefixIcon: const Icon(
+
+                prefixIcon: Icon(
                   Icons.badge_outlined,
-                  color: AppColors.primary,
+                  color: colorScheme.primary,
                 ),
+
                 filled: true,
-                fillColor: AppColors.background,
+                fillColor: colorScheme.surfaceContainerHighest,
+
                 contentPadding: const EdgeInsets.symmetric(
                   horizontal: 14,
                   vertical: 16,
                 ),
+
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(14),
                   borderSide: BorderSide.none,
                 ),
+
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(14),
                   borderSide: BorderSide.none,
                 ),
+
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(14),
-                  borderSide: const BorderSide(
-                    color: AppColors.primary,
+                  borderSide: BorderSide(
+                    color: colorScheme.primary,
                     width: 1.5,
                   ),
                 ),
@@ -293,30 +285,30 @@ class _EmployeeCardPageState extends State<EmployeeCardPage> {
             height: 58,
             width: 58,
             child: FilledButton(
-              onPressed: isLoading
-                  ? null
-                  : searchEmployee,
+              onPressed: isLoading ? null : searchEmployee,
               style: FilledButton.styleFrom(
-                backgroundColor: AppColors.primary,
-                disabledBackgroundColor:
-                    AppColors.primary.withValues(alpha: 0.5),
+                backgroundColor: colorScheme.primary,
+                disabledBackgroundColor: colorScheme.primary.withValues(
+                  alpha: 0.5,
+                ),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(14),
                 ),
                 padding: EdgeInsets.zero,
               ),
               child: isLoading
-                  ? const SizedBox(
+                  ? SizedBox(
                       width: 22,
                       height: 22,
                       child: CircularProgressIndicator(
                         strokeWidth: 2.5,
-                        color: Colors.white,
+                        color: colorScheme.onPrimary,
                       ),
                     )
-                  : const Icon(
+                  : Icon(
                       Icons.search_rounded,
                       size: 25,
+                      color: colorScheme.onPrimary,
                     ),
             ),
           ),
@@ -326,34 +318,36 @@ class _EmployeeCardPageState extends State<EmployeeCardPage> {
   }
 
   Widget _buildExportButton() {
+    final colorScheme = Theme.of(context).colorScheme;
+
     return SizedBox(
       width: 340,
       height: 52,
       child: FilledButton.icon(
         onPressed: isExporting ? null : exportCardToPdf,
         style: FilledButton.styleFrom(
-          backgroundColor: AppColors.primary,
-          disabledBackgroundColor:
-              AppColors.primary.withValues(alpha: 0.5),
+          backgroundColor: colorScheme.primary,
+          disabledBackgroundColor: colorScheme.primary.withValues(alpha: 0.5),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(14),
           ),
         ),
         icon: isExporting
-            ? const SizedBox(
+            ? SizedBox(
                 width: 18,
                 height: 18,
                 child: CircularProgressIndicator(
                   strokeWidth: 2.5,
-                  color: Colors.white,
+                  color: colorScheme.onPrimary,
                 ),
               )
-            : const Icon(Icons.picture_as_pdf_outlined),
+            : Icon(Icons.picture_as_pdf_outlined, color: colorScheme.onPrimary),
         label: Text(
           isExporting ? 'جاري التصدير...' : 'تصدير البطاقة PDF',
-          style: const TextStyle(
+          style: TextStyle(
             fontSize: 14,
             fontWeight: FontWeight.w700,
+            color: colorScheme.onPrimary,
           ),
         ),
       ),
@@ -361,8 +355,10 @@ class _EmployeeCardPageState extends State<EmployeeCardPage> {
   }
 
   Widget _buildLoading() {
-    return const Padding(
-      padding: EdgeInsets.symmetric(vertical: 40),
+    final colorScheme = Theme.of(context).colorScheme;
+
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 40),
       child: Column(
         children: [
           SizedBox(
@@ -370,18 +366,15 @@ class _EmployeeCardPageState extends State<EmployeeCardPage> {
             height: 30,
             child: CircularProgressIndicator(
               strokeWidth: 3,
-              color: AppColors.primary,
+              color: colorScheme.primary,
             ),
           ),
 
-          SizedBox(height: 14),
+          const SizedBox(height: 14),
 
           Text(
             'جاري البحث عن الموظف...',
-            style: TextStyle(
-              fontSize: 13,
-              color: AppColors.textSecondary,
-            ),
+            style: TextStyle(fontSize: 13, color: colorScheme.onSurfaceVariant),
           ),
         ],
       ),
@@ -389,14 +382,14 @@ class _EmployeeCardPageState extends State<EmployeeCardPage> {
   }
 
   Widget _buildError() {
+    final colorScheme = Theme.of(context).colorScheme;
+
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: AppColors.errorBackground,
+        color: colorScheme.error.withValues(alpha: 0.08),
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(
-          color: AppColors.errorBorder,
-        ),
+        border: Border.all(color: colorScheme.error.withValues(alpha: 0.20)),
       ),
       child: Row(
         children: [
@@ -404,12 +397,12 @@ class _EmployeeCardPageState extends State<EmployeeCardPage> {
             width: 38,
             height: 38,
             decoration: BoxDecoration(
-              color: AppColors.error.withValues(alpha: 0.08),
+              color: colorScheme.error.withValues(alpha: 0.08),
               shape: BoxShape.circle,
             ),
-            child: const Icon(
+            child: Icon(
               Icons.error_outline_rounded,
-              color: AppColors.error,
+              color: colorScheme.error,
               size: 21,
             ),
           ),
@@ -419,8 +412,8 @@ class _EmployeeCardPageState extends State<EmployeeCardPage> {
           Expanded(
             child: Text(
               errorMessage!,
-              style: const TextStyle(
-                color: AppColors.error,
+              style: TextStyle(
+                color: colorScheme.error,
                 fontSize: 13,
                 fontWeight: FontWeight.w500,
               ),
@@ -432,6 +425,8 @@ class _EmployeeCardPageState extends State<EmployeeCardPage> {
   }
 
   Widget _buildEmptyState() {
+    final colorScheme = Theme.of(context).colorScheme;
+
     return Padding(
       padding: const EdgeInsets.only(top: 45),
       child: Column(
@@ -439,25 +434,25 @@ class _EmployeeCardPageState extends State<EmployeeCardPage> {
           Container(
             width: 90,
             height: 90,
-            decoration: const BoxDecoration(
-              color: AppColors.primaryLight,
+            decoration: BoxDecoration(
+              color: colorScheme.primary.withValues(alpha: 0.10),
               shape: BoxShape.circle,
             ),
-            child: const Icon(
+            child: Icon(
               Icons.badge_outlined,
               size: 42,
-              color: AppColors.primary,
+              color: colorScheme.primary,
             ),
           ),
 
           const SizedBox(height: 18),
 
-          const Text(
+          Text(
             'لا توجد بطاقة لعرضها',
             style: TextStyle(
               fontSize: 17,
               fontWeight: FontWeight.w700,
-              color: AppColors.textPrimary,
+              color: colorScheme.onSurface,
             ),
           ),
 
@@ -465,10 +460,7 @@ class _EmployeeCardPageState extends State<EmployeeCardPage> {
 
           Text(
             'أدخل رقم الموظف أعلاه للبحث',
-            style: TextStyle(
-              fontSize: 13,
-              color: AppColors.textSecondary,
-            ),
+            style: TextStyle(fontSize: 13, color: colorScheme.onSurfaceVariant),
           ),
         ],
       ),

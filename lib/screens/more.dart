@@ -1,4 +1,3 @@
-
 import 'package:employee_cards/widgets/language_dialog.dart';
 import 'package:employee_cards/widgets/theme_dialog.dart';
 import 'package:flutter/material.dart';
@@ -27,12 +26,28 @@ class MorePage extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: colorScheme.surface,
         elevation: 0,
-        title: Text(
-          local.more,
-          style: TextStyle(
-            color: colorScheme.onSurface,
-            fontWeight: FontWeight.w700,
-          ),
+        title: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              width: 4,
+              height: 22,
+              decoration: BoxDecoration(
+                color: colorScheme.primary,
+                borderRadius: BorderRadius.circular(10),
+              ),
+            ),
+            const SizedBox(width: 10),
+            Text(
+              local.more,
+              style: TextStyle(
+                color: colorScheme.onSurface,
+                fontSize: 19,
+                fontWeight: FontWeight.w800,
+                letterSpacing: -0.2,
+              ),
+            ),
+          ],
         ),
       ),
 
@@ -53,10 +68,7 @@ class MorePage extends StatelessWidget {
                   color: colorScheme.outlineVariant.withValues(alpha: 0.25),
                 ),
               ),
-              leading: Icon(
-                Icons.language,
-                color: colorScheme.primary,
-              ),
+              leading: Icon(Icons.language, color: colorScheme.primary),
               title: Text(
                 local.language,
                 style: TextStyle(
@@ -73,9 +85,7 @@ class MorePage extends StatelessWidget {
                 showDialog(
                   context: context,
                   builder: (context) {
-                    return LanguageDialog(
-                      onLanguageChanged: onLanguageChanged,
-                    );
+                    return LanguageDialog(onLanguageChanged: onLanguageChanged);
                   },
                 );
               },

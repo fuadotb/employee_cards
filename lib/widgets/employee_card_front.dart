@@ -1,4 +1,3 @@
-
 import 'package:employee_cards/widgets/Info_Item.dart';
 import 'package:flutter/material.dart';
 import '../models/employee.dart';
@@ -6,12 +5,14 @@ import '../models/employee.dart';
 class EmployeeCardFront extends StatelessWidget {
   final Employee employee;
 
-  const EmployeeCardFront({super.key, required this.employee});
+  const EmployeeCardFront({
+    super.key,
+    required this.employee,
+  });
 
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
-
 
     return Container(
       width: 340,
@@ -20,11 +21,15 @@ class EmployeeCardFront extends StatelessWidget {
         color: colorScheme.surface,
         borderRadius: BorderRadius.circular(24),
         border: Border.all(
-          color: colorScheme.outlineVariant.withValues(alpha: 0.25),
+          color: colorScheme.outlineVariant.withValues(
+            alpha: 0.15,
+          ),
         ),
         boxShadow: [
           BoxShadow(
-            color: colorScheme.shadow.withValues(alpha: 0.08),
+            color: colorScheme.shadow.withValues(
+              alpha: 0.08,
+            ),
             blurRadius: 24,
             offset: const Offset(0, 10),
           ),
@@ -37,7 +42,12 @@ class EmployeeCardFront extends StatelessWidget {
             // Header
             Container(
               width: double.infinity,
-              padding: const EdgeInsets.fromLTRB(20, 18, 20, 16),
+              padding: const EdgeInsets.fromLTRB(
+                20,
+                18,
+                20,
+                16,
+              ),
               decoration: BoxDecoration(
                 color: colorScheme.surfaceContainerHighest,
               ),
@@ -52,13 +62,36 @@ class EmployeeCardFront extends StatelessWidget {
 
                   const SizedBox(height: 8),
 
-                  Container(
-                    width: 42,
-                    height: 3,
-                    decoration: BoxDecoration(
-                      color: colorScheme.primary,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        width: 28,
+                        height: 3,
+                        decoration: BoxDecoration(
+                          color: colorScheme.secondary,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+                      const SizedBox(width: 6),
+                      Container(
+                        width: 42,
+                        height: 3,
+                        decoration: BoxDecoration(
+                          color: colorScheme.primary,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+                      const SizedBox(width: 6),
+                      Container(
+                        width: 28,
+                        height: 3,
+                        decoration: BoxDecoration(
+                          color: colorScheme.secondary,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),
@@ -67,7 +100,9 @@ class EmployeeCardFront extends StatelessWidget {
             // Main Content
             Expanded(
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 22),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 22,
+                ),
                 child: Column(
                   children: [
                     const SizedBox(height: 18),
@@ -86,7 +121,9 @@ class EmployeeCardFront extends StatelessWidget {
                         ),
                         boxShadow: [
                           BoxShadow(
-                            color: colorScheme.primary.withValues(alpha: 0.12),
+                            color: colorScheme.primary.withValues(
+                              alpha: 0.12,
+                            ),
                             blurRadius: 12,
                             offset: const Offset(0, 5),
                           ),
@@ -99,7 +136,11 @@ class EmployeeCardFront extends StatelessWidget {
                                 fit: BoxFit.cover,
                                 cacheWidth: 240,
                                 cacheHeight: 240,
-                                errorBuilder: (context, error, stackTrace) {
+                                errorBuilder: (
+                                  context,
+                                  error,
+                                  stackTrace,
+                                ) {
                                   return Icon(
                                     Icons.person_rounded,
                                     size: 68,
@@ -124,7 +165,9 @@ class EmployeeCardFront extends StatelessWidget {
                         vertical: 5,
                       ),
                       decoration: BoxDecoration(
-                        color: colorScheme.primary.withValues(alpha: 0.10),
+                        color: colorScheme.primary.withValues(
+                          alpha: 0.10,
+                        ),
                         borderRadius: BorderRadius.circular(20),
                       ),
                       child: Text(
@@ -178,10 +221,14 @@ class EmployeeCardFront extends StatelessWidget {
                         vertical: 10,
                       ),
                       decoration: BoxDecoration(
-                        color: colorScheme.surfaceContainerHighest,
+                        color: colorScheme.primary.withValues(
+                          alpha: 0.06,
+                        ),
                         borderRadius: BorderRadius.circular(12),
                         border: Border.all(
-                          color: colorScheme.outlineVariant.withValues(alpha: 0.25),
+                          color: colorScheme.outlineVariant.withValues(
+                            alpha: 0.15,
+                          ),
                         ),
                       ),
                       child: Text(
@@ -227,4 +274,3 @@ class EmployeeCardFront extends StatelessWidget {
     );
   }
 }
-

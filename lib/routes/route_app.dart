@@ -7,6 +7,7 @@ import 'package:go_router/go_router.dart';
 import '../screens/home_screen/home_page.dart';
 import '../screens/emplyee/employee_card_page.dart';
 import '../screens/home_screen/news_detail_page.dart';
+import '../screens/assistant_page.dart';
 import 'route_key.dart';
 
 class RouteApp {
@@ -79,6 +80,13 @@ class RouteApp {
             return NewsDetailPage(newsId: newsId ?? 0);
           },
         ),
+
+        GoRoute(
+          path: RouteKey.assistant,
+          builder: (context, state) {
+            return const AssistantPage();
+          },
+        ),
       ],
     );
   }
@@ -91,8 +99,21 @@ class MainShell extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+
     return Scaffold(
       body: navigationShell,
+
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: colorScheme.primary,
+        onPressed: () {
+          context.push(RouteKey.assistant);
+        },
+        child: Icon(
+          Icons.support_agent_rounded,
+          color: colorScheme.onPrimary,
+        ),
+      ),
 
       bottomNavigationBar: BottomNavBar(navigationShell: navigationShell),
     );
